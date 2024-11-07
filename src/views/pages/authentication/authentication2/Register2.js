@@ -10,7 +10,7 @@ import AuthCardWrapper from '../AuthCardWrapper';
 import Logo from 'ui-component/Logo';
 import AuthRegister from '../auth-forms/AuthRegister';
 import BackgroundPattern2 from 'ui-component/cards/BackgroundPattern2';
-import AuthFooter from 'ui-component/cards/AuthFooter';
+// import AuthFooter from 'ui-component/cards/AuthFooter';
 import AuthSlider from 'ui-component/cards/AuthSlider';
 
 // assets
@@ -19,16 +19,12 @@ import imgMain from 'assets/images/auth/img-a2-signup.svg';
 // carousel items
 const items = [
     {
-        title: 'Power of React with Material UI',
-        description: 'Powerful and easy to use multipurpose theme'
+        title: 'Gestion Smart',
+        description: 'Tus clientes a tu alcance con un solo click'
     },
     {
-        title: 'Power of React with Material UI',
-        description: 'Powerful and easy to use multipurpose theme'
-    },
-    {
-        title: 'Power of React with Material UI',
-        description: 'Powerful and easy to use multipurpose theme'
+        title: 'Gestion Smart',
+        description: 'Una poderosa herramienta para automatizar tus transacciones'
     }
 ];
 
@@ -75,14 +71,14 @@ const Register = () => {
                                                     gutterBottom
                                                     variant={matchDownSM ? 'h3' : 'h2'}
                                                 >
-                                                    Sign up
+                                                    Regístrate
                                                 </Typography>
                                                 <Typography
                                                     variant="caption"
                                                     fontSize="16px"
                                                     textAlign={matchDownSM ? 'center' : 'inherit'}
                                                 >
-                                                    Enter your credentials to continue
+                                                    Ingrese sus credenciales para registrarse
                                                 </Typography>
                                             </Stack>
                                         </Grid>
@@ -100,7 +96,7 @@ const Register = () => {
                                                     variant="subtitle1"
                                                     sx={{ textDecoration: 'none' }}
                                                 >
-                                                    Already have an account?
+                                                    Ya tienes una cuenta?
                                                 </Typography>
                                             </Grid>
                                         </Grid>
@@ -108,9 +104,9 @@ const Register = () => {
                                 </AuthCardWrapper>
                             </Stack>
                         </Grid>
-                        <Grid item xs={12} sx={{ m: 3 }}>
+                        {/* <Grid item xs={12} sx={{ m: 3 }}>
                             <AuthFooter />
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </Grid>
                 <Grid item md={6} lg={5} sx={{ position: 'relative', alignSelf: 'stretch', display: { xs: 'none', md: 'block' } }}>

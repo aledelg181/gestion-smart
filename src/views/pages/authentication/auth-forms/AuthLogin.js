@@ -34,7 +34,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 const JWTLogin = ({ loginProp, ...others }) => {
     const theme = useTheme();
     const scriptedRef = useScriptRef();
-    const navigate = useNavigate();  // Hook para redirigir
+    const navigate = useNavigate(); // Para redirigir
 
     const [checked, setChecked] = React.useState(true);
     const [showPassword, setShowPassword] = React.useState(false);
@@ -45,12 +45,6 @@ const JWTLogin = ({ loginProp, ...others }) => {
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
-    };
-
-    // Datos mockeados
-    const mockUser = {
-        email: 'poseidon@poseidon.com',
-        password: '123456'
     };
 
     return (
@@ -65,25 +59,35 @@ const JWTLogin = ({ loginProp, ...others }) => {
             })}
             onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                 try {
-                    if (values.email === mockUser.email && values.password === mockUser.password) {
+                    const response = await fetch('http://localhost:5000/api/users/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            email: values.email,
+                            password: values.password
+                        })
+                    });
+            
+                    const data = await response.json();
+            
+                    if (response.ok) {
                         console.log('Login exitoso, redirigiendo al dashboard');
+                        // Aquí podrías guardar el token (si estás usando JWT) en el almacenamiento local
                         navigate('/dashboard/default');
                     } else {
+                        setErrors({ submit: data.message || 'Error en el login' });
                         console.log('Credenciales incorrectas');
-                        setErrors({ submit: 'Usuario o contraseña incorrectos' });
                     }
             
-                    if (scriptedRef.current) {
-                        setStatus({ success: true });
-                        setSubmitting(false);
-                    }
+                    setStatus({ success: true });
+                    setSubmitting(false);
                 } catch (err) {
-                    console.error('Error en el login:', err);
-                    if (scriptedRef.current) {
-                        setStatus({ success: false });
-                        setErrors({ submit: err.message });
-                        setSubmitting(false);
-                    }
+                    console.error('Error al hacer login:', err);
+                    setStatus({ success: false });
+                    setErrors({ submit: err.message });
+                    setSubmitting(false);
                 }
             }}
         >
@@ -139,7 +143,7 @@ const JWTLogin = ({ loginProp, ...others }) => {
                                     </IconButton>
                                 </InputAdornment>
                             }
-                            label="Password"
+                            label="Contraseña"
                         />
                         {touched.password && errors.password && (
                             <FormHelperText error id="standard-weight-helper-text-password-login">
@@ -166,11 +170,7 @@ const JWTLogin = ({ loginProp, ...others }) => {
                             <Typography
                                 variant="subtitle1"
                                 component={Link}
-                                to={
-                                    loginProp
-                                        ? `/pages/forgot-password/forgot-password${loginProp}`
-                                        : '/pages/forgot-password/forgot-password3'
-                                }
+                                to={loginProp ? `/pages/forgot-password/forgot-password${loginProp}` : '/pages/forgot-password/forgot-password3'}
                                 color="secondary"
                                 sx={{ textDecoration: 'none' }}
                             >
@@ -187,7 +187,7 @@ const JWTLogin = ({ loginProp, ...others }) => {
                     <Box sx={{ mt: 2 }}>
                         <AnimateButton>
                             <Button color="secondary" disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained">
-                                Iniciar Sesión
+                                Iniciar sesión
                             </Button>
                         </AnimateButton>
                     </Box>
@@ -198,7 +198,7 @@ const JWTLogin = ({ loginProp, ...others }) => {
 };
 
 JWTLogin.propTypes = {
-    loginProp: PropTypes.number
+    loginProp: PropTypes.string
 };
 
 export default JWTLogin;
